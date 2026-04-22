@@ -28,6 +28,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/seller/add-product" element={<SellerAddProduct />} />
           <Route path="/admin" element={<AdminDashboard />} />
+  
+          
         </Routes>
       </div>
 
