@@ -5,7 +5,7 @@ import { useAuth } from "../../store/authStore"
 import { useCategory } from "../../store/categoryStore"
 import SearchBar from "./SearchBar"
 
-function Navbar({ onCartClick }) {
+const Navbar = ({ onCartClick }) => {
   const [showCategories, setShowCategories] = useState(false)
 
   const dropdownRef = useRef()
@@ -42,12 +42,12 @@ function Navbar({ onCartClick }) {
         </Link>
 
         <Link to="/seller/add-product" className="hover:text-gray-300">
-  Sell
-</Link>
+          Sell
+        </Link>
 
-       <Link to="/admin" className="hover:text-gray-300">
-  Admin
-</Link>
+        <Link to="/admin" className="hover:text-gray-300">
+          Admin
+        </Link>
 
         {/* Categories */}
         <div className="relative" ref={dropdownRef}>
