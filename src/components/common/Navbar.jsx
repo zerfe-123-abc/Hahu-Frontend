@@ -108,7 +108,14 @@ const Navbar = ({ onCartClick }) => {
               </button>
             </>
           ) : (
-            <Link to="/login">Login</Link>
+            <div className="flex items-center gap-4">
+              <Link to="/login" className="hover:text-gray-300">
+                Login
+              </Link>
+              <Link to="/register" className="hover:text-gray-300">
+                Register
+              </Link>
+            </div>
           )}
         </div>
       </div>

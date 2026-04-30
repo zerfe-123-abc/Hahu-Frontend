@@ -7,6 +7,7 @@ import CartSidebar from "./components/ui/CartSidebar"
 import { Routes, Route } from "react-router-dom"
 import { useState } from "react"
 import Login from "./pages/Login"
+import Register from "./pages/Register"
 import SellerAddProduct from "./pages/SellerAddProduct"
 import AdminDashboard from "./pages/AdminDashboard"
 
@@ -20,16 +21,17 @@ function App() {
       <Navbar onCartClick={() => setShowCart(true)} />
 
       {/* Main Content */}
-      <div className="flex-grow">
+      <div className="grow">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/seller/add-product" element={<SellerAddProduct />} />
           <Route path="/admin" element={<AdminDashboard />} />
-  
-          
+
+
         </Routes>
       </div>
 

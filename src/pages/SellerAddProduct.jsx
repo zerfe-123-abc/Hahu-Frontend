@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useProducts } from "../store/productStore"
 
-function SellerAddProduct() {
+const SellerAddProduct = () => {
   const [form, setForm] = useState({
     title: "",
     price: "",
@@ -19,20 +19,20 @@ function SellerAddProduct() {
   }
 
   const handleSubmit = (e) => {
-  e.preventDefault()
+    e.preventDefault()
 
-  addProduct(form)
+    addProduct(form)
 
-  alert("Product submitted for approval")
+    alert("Product submitted for approval")
 
-  setForm({
-    title: "",
-    price: "",
-    category: "Phones",
-    description: "",
-    image: "",
-  })
-}
+    setForm({
+      title: "",
+      price: "",
+      category: "Phones",
+      description: "",
+      image: "",
+    })
+  }
 
   return (
     <div className="max-w-2xl mx-auto p-6">

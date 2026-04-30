@@ -3,7 +3,7 @@ import products from "../data/products"
 import { useCart } from "../store/cartStore"
 import { Link } from "react-router-dom"
 
-function Product() {
+const Product = () => {
   const { id } = useParams()
   const { addToCart } = useCart()
 
@@ -44,52 +44,52 @@ function Product() {
             onClick={() => addToCart(product)}
             className="bg-amber-500 text-white px-5 py-2 rounded-md hover:bg-amber-600 transition"
           >
-  Add to Cart
-</button>
-{/* Related Products */}
-<div className="mt-12">
-  <h2 className="text-xl font-bold mb-4">
-    Related Products
-  </h2>
+            Add to Cart
+          </button>
+          {/* Related Products */}
+          <div className="mt-12">
+            <h2 className="text-xl font-bold mb-4">
+              Related Products
+            </h2>
 
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
 
-    {products
-      .filter(
-        (p) =>
-          p.category === product.category &&
-          p.id !== product.id
-      )
-      .map((item) => (
-        <Link
-          to={`/product/${item.id}`}
-          key={item.id}
-          className="border rounded-lg overflow-hidden shadow hover:shadow-md transition"
-        >
-          <img
-            src={item.image}
-            alt={item.title}
-            className="w-full h-40 object-cover"
-          />
+              {products
+                .filter(
+                  (p) =>
+                    p.category === product.category &&
+                    p.id !== product.id
+                )
+                .map((item) => (
+                  <Link
+                    to={`/product/${item.id}`}
+                    key={item.id}
+                    className="border rounded-lg overflow-hidden shadow hover:shadow-md transition"
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-40 object-cover"
+                    />
 
-          <div className="p-3">
-            <h3 className="font-semibold">
-              {item.title}
-            </h3>
+                    <div className="p-3">
+                      <h3 className="font-semibold">
+                        {item.title}
+                      </h3>
 
-            <p className="text-blue-600 font-bold">
-              {item.price} ETB
-            </p>
+                      <p className="text-blue-600 font-bold">
+                        {item.price} ETB
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+            </div>
           </div>
-        </Link>
-      ))}
-  </div>
-</div>
         </div>
 
       </div>
     </div>
-    
+
   )
 }
 
