@@ -1,11 +1,8 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 
 const VerifiedRoute = () => {
-  return (
-    <div>
-        this is verified route
-    </div>
-  )
+  return <Outlet />
 }
 
 export default VerifiedRoute

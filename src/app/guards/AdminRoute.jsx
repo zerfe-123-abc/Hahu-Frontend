@@ -1,11 +1,8 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 
 const AdminRoute = () => {
-  return (
-    <div>
-      this is admin route
-    </div>
-  )
+  return <Outlet />
 }
 
 export default AdminRoute

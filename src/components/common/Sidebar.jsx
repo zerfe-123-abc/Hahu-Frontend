@@ -103,6 +103,12 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
 
     const isActive = (link) => location.pathname === link;
 
+    const handleNavClick = () => {
+        if (window.innerWidth < 768) {
+            onClose();
+        }
+    };
+
     return (
         <>
             {/* Mobile Overlay */}
@@ -114,18 +120,18 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
             )}
 
             <aside
-                className={`fixed top-0 left-0 h-screen bg-gray-900 text-white transition-all duration-300 z-50 
+                className={`fixed top-0 left-0 h-screen bg-linear-to-b from-slate-900 to-slate-950 dark:from-slate-900 dark:to-slate-950 text-white transition-all duration-300 z-50 
              ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0
              ${isOpen ? "w-72" : "w-20"}`}
             >
                 {/* Header */}
-                <div className="h-16 flex items-center justify-between px-4 border-b border-slate-800">
+                <div className="h-16 flex items-center justify-between px-4 border-b border-slate-800 dark:border-slate-800">
                     {isOpen && (
                         <div className="flex items-center gap-3">
-                            <div className="w-9 h-9 rounded-lg bg-linear-to-br from-blue-500 to-blue-700 flex items-center justify-center font-bold text-sm shadow-lg shadow-red-500/20">
+                            <div className="w-9 h-9 rounded-lg bg-linear-to-br from-blue-500 to-blue-700 flex items-center justify-center font-bold text-sm shadow-lg shadow-white-500/20">
                                 H
                             </div>
-                            <span className="font-bold text-lg tracking-tight">HAHU<span className="text-blue-500">MARKET</span></span>
+                            <span className="font-bold text-lg tracking-tight">HAHU<span className="text-white-500">MARKET</span></span>
                         </div>
                     )}
                     <button
@@ -143,18 +149,18 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
                         <Link
                             key={item.id}
                             to={item.link}
-                            onClick={onClose}
+                            onClick={handleNavClick}
                             className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group ${isActive(item.link)
-                                ? 'bg-linear-to-r from-red-500/20 to-red-600/10 text-blue-400 border-l-2 border-blue-500'
-                                : 'hover:bg-slate-800'
+                                ? 'bg-linear-to-r from-red-500/20 to-red-600/10 text-white-400 border-l-2 border-white-500'
+                                : 'hover:bg-slate-800 dark:hover:bg-slate-800'
                                 }`}
                         >
-                            <item.icon size={20} className={`${isActive(item.link) ? 'text-blue-400' : 'text-slate-400 group-hover:text-blue-400'} transition-colors`} />
+                            <item.icon size={20} className={`${isActive(item.link) ? 'text-white-400' : 'text-slate-400 group-hover:text-white-400'} transition-colors`} />
                             {isOpen && (
                                 <>
                                     <span className="text-sm font-medium flex-1">{item.name}</span>
                                     {item.badge && (
-                                        <span className="bg-blue-500 text-[10px] px-2 py-0.5 rounded-full font-medium">{item.badge}</span>
+                                        <span className="bg-white-500 text-[10px] px-2 py-0.5 rounded-full font-medium">{item.badge}</span>
                                     )}
                                 </>
                             )}
@@ -171,8 +177,8 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
                                 <Link
                                     key={cat.id}
                                     to={cat.link}
-                                    onClick={onClose}
-                                    className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-800 transition-colors group"
+                                    onClick={handleNavClick}
+                                    className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-800 dark:hover:bg-slate-800 transition-colors group"
                                 >
                                     <div className="flex items-center gap-3">
                                         <span className="text-lg group-hover:scale-110 transition-transform">{cat.icon}</span>
@@ -192,7 +198,7 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
                                 <div key={subMenu.id} className="mb-2">
                                     <button
                                         onClick={() => toggleDropdown(subMenu.id)}
-                                        className="flex items-center justify-between w-full px-3 py-2.5 rounded-xl hover:bg-slate-800 transition-colors"
+                                        className="flex items-center justify-between w-full px-3 py-2.5 rounded-xl hover:bg-slate-800 dark:hover:bg-slate-800 transition-colors"
                                     >
                                         <div className="flex items-center gap-3">
                                             <subMenu.icon size={20} className="text-slate-400" />
@@ -209,8 +215,8 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
                                                 <Link
                                                     key={idx}
                                                     to={item.link}
-                                                    onClick={onClose}
-                                                    className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-800 text-sm text-slate-300 hover:text-white transition-colors"
+                                                    onClick={handleNavClick}
+                                                    className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-800 dark:hover:bg-slate-800 text-sm text-slate-300 hover:text-white transition-colors"
                                                 >
                                                     <ChevronRight size={14} className="text-slate-500" />
                                                     {item.name}
@@ -230,13 +236,13 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
                                 <div className="space-y-1">
                                     <Link
                                         to="/app/settings"
-                                        onClick={onClose}
-                                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-800 transition-colors"
+                                        onClick={handleNavClick}
+                                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-800 dark:hover:bg-slate-800 transition-colors"
                                     >
                                         <Settings size={20} className="text-slate-400" />
                                         <span className="text-sm">Settings</span>
                                     </Link>
-                                    <button className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-800 transition-colors w-full text-left text-red-400">
+                                    <button className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-800 dark:hover:bg-slate-800 transition-colors w-full text-left text-red-400" onClick={handleNavClick}>
                                         <LogOut size={20} />
                                         <span className="text-sm">Sign Out</span>
                                     </button>
@@ -245,8 +251,8 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
                             {variant === "admin" && (
                                 <Link
                                     to="/admin/profile"
-                                    onClick={onClose}
-                                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-800 transition-colors"
+                                    onClick={handleNavClick}
+                                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-800 dark:hover:bg-slate-800 transition-colors"
                                 >
                                     <User size={20} className="text-slate-400" />
                                     <span className="text-sm">Admin Profile</span>
@@ -255,8 +261,8 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
                             {variant === "public" && (
                                 <Link
                                     to="/create-listing"
-                                    onClick={onClose}
-                                    className="flex items-center justify-center gap-2 w-full py-3 bg-linear-to-r from-blue-500 to-blue-600 rounded-xl font-medium text-sm shadow-lg shadow-blue-500/20 hover:from-blue-600 hover:to-blue-700 transition-all"
+                                    onClick={handleNavClick}
+                                    className="flex items-center justify-center gap-2 w-full py-3 bg-linear-to-r from-white-500 to-white-600 rounded-xl font-medium text-sm shadow-lg shadow-white-500/20 hover:from-white-600 hover:to-white-700 transition-all"
                                 >
                                     <Store size={18} />
                                     Sell an Item

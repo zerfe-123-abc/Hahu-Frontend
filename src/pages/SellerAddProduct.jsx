@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useProducts } from "../store/productStore"
+import { useProducts } from "@/store/productStore"
 
 const SellerAddProduct = () => {
   const [form, setForm] = useState({

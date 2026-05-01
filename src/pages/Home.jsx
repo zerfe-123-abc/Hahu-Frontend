@@ -1,7 +1,7 @@
-import { useCategory } from "../store/categoryStore"
-import { useProducts } from "../store/productStore"
+import { useCategory } from "@/store/categoryStore"
+import { useProducts } from "@/store/productStore"
 import { Link } from "react-router-dom"
-import { useSearch } from "../store/searchStore"
+import { useSearch } from "@/store/searchStore"
 
 const Home = () => {
   const { selectedCategory } = useCategory()

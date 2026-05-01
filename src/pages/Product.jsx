@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
-import products from "../data/products"
-import { useCart } from "../store/cartStore"
+import products from "@/data/products"
+import { useCart } from "@/store/cartStore"
 import { Link } from "react-router-dom"
 
 const Product = () => {
