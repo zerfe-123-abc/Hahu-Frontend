@@ -120,7 +120,7 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
             )}
 
             <aside
-                className={`fixed top-0 left-0 h-screen bg-linear-to-b from-slate-900 to-slate-950 dark:from-slate-900 dark:to-slate-950 text-white transition-all duration-300 z-50 
+                className={`fixed top-16 left-0 h-[calc(100vh-4rem)] bg-linear-to-b from-slate-900 to-slate-950 dark:from-slate-900 dark:to-slate-950 text-white transition-all duration-300 z-50 
              ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0
              ${isOpen ? "w-72" : "w-20"}`}
             >

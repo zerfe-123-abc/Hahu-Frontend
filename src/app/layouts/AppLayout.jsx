@@ -9,10 +9,10 @@ const AppLayout = () => {
   const { user } = useAuth()
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className={`min-h-screen bg-slate-950 text-white ${showSidebar ? 'md:pl-72' : 'md:pl-20'}`}>
       <Sidebar isOpen={showSidebar} variant={user ? "user" : "public"} onClose={() => setShowSidebar(false)} />
-      <div className="md:pl-72">
-        <Navbar toggleSidebar={() => setShowSidebar((prev) => !prev)} />
+      <div>
+        <Navbar toggleSidebar={() => setShowSidebar((prev) => !prev)} isLoggedIn={!!user} />
         <main className="min-h-[calc(100vh-64px)] bg-slate-950 px-4 py-6 md:px-8">
           <Outlet />
         </main>
