@@ -1,4 +1,4 @@
-import { useProducts } from "../store/productStore"
+import { useProducts } from "@/store/productStore"
 
 function AdminDashboard() {
   const { products, approveProduct, rejectProduct } = useProducts()
