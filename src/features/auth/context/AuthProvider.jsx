@@ -5,9 +5,6 @@ const AuthProvider = () => {
         <div>
             this is authentication provider
         </div>
-
-
     )
 }
-
 export default AuthProvider

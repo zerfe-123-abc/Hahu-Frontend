@@ -1,17 +1,21 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Menu, X, Search, ShoppingCart, Heart, PlusCircle, LogIn, Bell, ChevronDown, User, Package, MessageCircle } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Menu, X, Search, ShoppingCart, Heart, PlusCircle, LogIn, LogOut, Bell, ChevronDown, User, Package, MessageCircle, ShoppingBag } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useSearch } from "@/store/searchStore.jsx";
+import { useAuth } from "@/store/authStore.jsx";
 
-const Navbar = ({ toggleSidebar, isLoggedIn = false }) => {
+const Navbar = ({ toggleSidebar }) => {
+  const { user, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const [catOpen, setCatOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchText, setSearchText] = useState("");
   const catRef = useRef();
   const userRef = useRef();
   const location = useLocation();
+  const navigate = useNavigate();
+  const { setSearchQuery } = useSearch();
 
-  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (catRef.current && !catRef.current.contains(e.target)) {
@@ -25,12 +29,10 @@ const Navbar = ({ toggleSidebar, isLoggedIn = false }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setMenuOpen(false);
   }, [location]);
 
-  // Second-hand store categories
   const categories = [
     { id: 1, name: "Electronics & Gadgets", icon: "📱", link: "/category/electronics", count: 234 },
     { id: 2, name: "Vehicles", icon: "🚗", link: "/category/vehicles", count: 89 },
@@ -48,19 +50,19 @@ const Navbar = ({ toggleSidebar, isLoggedIn = false }) => {
     { id: 3, name: "Categories", link: "/categories" },
   ];
 
+  const userInitials = user?.name?.split(" ").map((part) => part[0]).join("").slice(0, 2).toUpperCase() || "JD";
+
   const handleSearch = (e) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
-      window.location.href = `/browse?search=${encodeURIComponent(searchQuery)}`;
-    }
+    const query = searchText.trim();
+    setSearchQuery(query);
+    navigate(query ? `/browse?search=${encodeURIComponent(query)}` : "/browse");
   };
 
   return (
     <nav className="bg-gray-900 dark:bg-gray-950 text-white sticky top-0 z-50 shadow-lg">
-      {/* TOP NAV */}
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          {/* Left Section - Logo & Menu */}
           <div className="flex items-center gap-4">
             <button
               onClick={toggleSidebar}
@@ -76,13 +78,12 @@ const Navbar = ({ toggleSidebar, isLoggedIn = false }) => {
             </Link>
           </div>
 
-          {/* Center Section - Search Bar */}
           <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-xl mx-8">
             <div className="relative w-full">
               <input
                 type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
                 placeholder="Search phones, cars, furniture..."
                 className="w-full rounded-full border border-gray-700 bg-gray-800 dark:bg-gray-900 px-5 py-2.5 pr-12 focus:outline-none focus:border-white-500 focus:ring-1 focus:ring-white-500 text-sm text-white placeholder-gray-400 transition-all"
               />
@@ -95,27 +96,22 @@ const Navbar = ({ toggleSidebar, isLoggedIn = false }) => {
             </div>
           </form>
 
-          {/* Right Section - Actions */}
           <div className="flex items-center gap-1 md:gap-2">
-            {/* Notifications - Desktop */}
             <Link to="/notifications" className="hidden md:flex p-2.5 hover:bg-gray-800 dark:hover:bg-gray-800 rounded-lg transition-colors relative">
               <Bell size={20} />
               <span className="absolute top-1 right-1 w-2 h-2 bg-white-500 rounded-full"></span>
             </Link>
 
-            {/* Wishlist */}
             <Link to="/wishlist" className="p-2.5 hover:bg-gray-800 dark:hover:bg-gray-800 rounded-lg transition-colors relative">
               <Heart size={20} />
               <span className="absolute -top-0.5 -right-0.5 bg-white-500 text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">3</span>
             </Link>
 
-            {/* Cart */}
             <Link to="/cart" className="p-2.5 hover:bg-gray-800 dark:hover:bg-gray-800 rounded-lg transition-colors relative">
               <ShoppingCart size={20} />
               <span className="absolute -top-0.5 -right-0.5 bg-white-500 text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">2</span>
             </Link>
 
-            {/* Sell Button - Desktop */}
             <Link
               to="/create-listing"
               className="hidden md:flex items-center gap-2 bg-linear-to-r from-white-500 to-white-600 hover:from-white-600 hover:to-white-700 px-4 py-2 rounded-full font-medium text-sm shadow-lg shadow-white-500/20 transition-all hover:scale-105"
@@ -124,15 +120,14 @@ const Navbar = ({ toggleSidebar, isLoggedIn = false }) => {
               <span>Sell</span>
             </Link>
 
-            {/* User Menu */}
             <div className="relative" ref={userRef}>
-              {isLoggedIn ? (
+              {user ? (
                 <button
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
                   className="flex items-center gap-2 p-1.5 hover:bg-gray-800 dark:hover:bg-gray-800 rounded-lg transition-colors"
                 >
                   <div className="w-8 h-8 bg-linear-to-br from-white-400 to-white-600 rounded-full flex items-center justify-center text-sm font-bold shadow">
-                    JD
+                    {userInitials}
                   </div>
                   <ChevronDown size={16} className={`transition-transform ${userMenuOpen ? "rotate-180" : ""}`} />
                 </button>
@@ -143,12 +138,11 @@ const Navbar = ({ toggleSidebar, isLoggedIn = false }) => {
                 </Link>
               )}
 
-              {/* User Dropdown */}
-              {userMenuOpen && isLoggedIn && (
+              {userMenuOpen && user && (
                 <div className="absolute right-0 top-full mt-2 w-56 bg-gray-800 dark:bg-gray-900 rounded-xl shadow-xl border border-gray-700 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                   <div className="px-4 py-3 border-b border-gray-700">
-                    <p className="font-medium text-sm">John Doe</p>
-                    <p className="text-xs text-gray-400">john@example.com</p>
+                    <p className="font-medium text-sm">{user.name}</p>
+                    <p className="text-xs text-gray-400">{user.email}</p>
                   </div>
                   <Link to="/profile" className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-700 dark:hover:bg-gray-800 text-sm transition-colors">
                     <User size={16} />
@@ -168,7 +162,14 @@ const Navbar = ({ toggleSidebar, isLoggedIn = false }) => {
                     <span className="ml-auto bg-white-500 text-[10px] px-1.5 py-0.5 rounded-full">2</span>
                   </Link>
                   <hr className="my-2 border-gray-700" />
-                  <button className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-700 dark:hover:bg-gray-800 text-sm text-white-400 transition-colors w-full">
+                  <button
+                    onClick={() => {
+                      logout();
+                      setUserMenuOpen(false);
+                      navigate("/");
+                    }}
+                    className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-700 dark:hover:bg-gray-800 text-sm text-white-400 transition-colors w-full"
+                  >
                     <LogOut size={16} />
                     Sign Out
                   </button>
@@ -176,7 +177,6 @@ const Navbar = ({ toggleSidebar, isLoggedIn = false }) => {
               )}
             </div>
 
-            {/* Mobile Menu Toggle */}
             <button
               className="md:hidden p-2.5 hover:bg-gray-800 rounded-lg transition-colors"
               onClick={() => setMenuOpen(!menuOpen)}
@@ -187,7 +187,6 @@ const Navbar = ({ toggleSidebar, isLoggedIn = false }) => {
         </div>
       </div>
 
-      {/* DESKTOP NAV - Categories */}
       <div className="hidden md:block border-t border-gray-800 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center gap-1 h-10">
@@ -201,7 +200,6 @@ const Navbar = ({ toggleSidebar, isLoggedIn = false }) => {
               </Link>
             ))}
 
-            {/* Categories Dropdown */}
             <div className="relative" ref={catRef}>
               <button
                 onClick={() => setCatOpen(!catOpen)}
@@ -247,16 +245,14 @@ const Navbar = ({ toggleSidebar, isLoggedIn = false }) => {
         </div>
       </div>
 
-      {/* MOBILE MENU */}
       {menuOpen && (
         <div className="md:hidden bg-gray-800 dark:bg-gray-900 border-t border-gray-700 py-4 animate-in slide-in-from-top duration-200">
           <div className="max-w-7xl mx-auto px-4 space-y-4">
-            {/* Mobile Search */}
             <form onSubmit={handleSearch} className="relative">
               <input
                 type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
                 placeholder="Search items..."
                 className="w-full rounded-xl border border-gray-600 bg-gray-900 px-4 py-2.5 pr-10 focus:outline-none focus:border-white-500 text-sm text-white placeholder-gray-400"
               />
@@ -265,7 +261,6 @@ const Navbar = ({ toggleSidebar, isLoggedIn = false }) => {
               </button>
             </form>
 
-            {/* Mobile Menu Items */}
             <div className="space-y-1">
               {menuItems.map((item) => (
                 <Link
@@ -280,7 +275,6 @@ const Navbar = ({ toggleSidebar, isLoggedIn = false }) => {
 
             <hr className="border-gray-700" />
 
-            {/* Mobile Categories */}
             <div>
               <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-3">Categories</h4>
               <div className="grid grid-cols-2 gap-2">
@@ -299,7 +293,6 @@ const Navbar = ({ toggleSidebar, isLoggedIn = false }) => {
 
             <hr className="border-gray-700" />
 
-            {/* Mobile Actions */}
             <div className="flex flex-col gap-2">
               <Link
                 to="/create-listing"

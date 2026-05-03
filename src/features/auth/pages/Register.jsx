@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff, Mail, Lock, User, Phone, MapPin } from "lucide-react";
+import { useAuth } from "@/store/authStore.jsx";
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -14,6 +15,8 @@ const Register = () => {
         confirmPassword: "",
         agreeTerms: false,
     });
+    const { register } = useAuth();
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -29,29 +32,23 @@ const Register = () => {
             alert("Passwords don't match!");
             return;
         }
-        console.log("Register:", formData);
+
+        register(formData);
+        navigate("/");
     };
 
     return (
         <div className="min-h-[80vh] flex items-center justify-center py-12 px-4">
             <div className="max-w-lg w-full">
-                {/* Header */}
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-bold text-gray-900">Create Account</h1>
-                    <p className="mt-2 text-gray-600">
-                        Join HAHU MARKET - Ethiopia's trusted second-hand marketplace
-                    </p>
+                    <p className="mt-2 text-gray-600">Join HAHU MARKET - Ethiopia's trusted second-hand marketplace</p>
                 </div>
 
-                {/* Form */}
                 <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-lg p-8">
-                    {/* Name Row */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                        {/* First Name */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                First Name
-                            </label>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">First Name</label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <User className="h-5 w-5 text-gray-400" />
@@ -68,11 +65,8 @@ const Register = () => {
                             </div>
                         </div>
 
-                        {/* Last Name */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Last Name
-                            </label>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
                             <input
                                 type="text"
                                 name="lastName"
@@ -85,11 +79,8 @@ const Register = () => {
                         </div>
                     </div>
 
-                    {/* Email */}
                     <div className="mb-6">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Email Address
-                        </label>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
                         <div className="relative">
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <Mail className="h-5 w-5 text-gray-400" />
@@ -106,11 +97,8 @@ const Register = () => {
                         </div>
                     </div>
 
-                    {/* Phone */}
                     <div className="mb-6">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Phone Number
-                        </label>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
                         <div className="relative">
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <Phone className="h-5 w-5 text-gray-400" />
@@ -127,11 +115,8 @@ const Register = () => {
                         </div>
                     </div>
 
-                    {/* Location */}
                     <div className="mb-6">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Location (City/Area)
-                        </label>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Location (City/Area)</label>
                         <div className="relative">
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <MapPin className="h-5 w-5 text-gray-400" />
@@ -148,13 +133,9 @@ const Register = () => {
                         </div>
                     </div>
 
-                    {/* Password Row */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                        {/* Password */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Password
-                            </label>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <Lock className="h-5 w-5 text-gray-400" />
@@ -182,11 +163,8 @@ const Register = () => {
                             </div>
                         </div>
 
-                        {/* Confirm Password */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                                Confirm Password
-                            </label>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
                             <input
                                 type="password"
                                 name="confirmPassword"
@@ -199,7 +177,6 @@ const Register = () => {
                         </div>
                     </div>
 
-                    {/* Terms */}
                     <div className="mb-6">
                         <label className="flex items-center">
                             <input
@@ -211,32 +188,17 @@ const Register = () => {
                                 required
                             />
                             <span className="ml-2 text-sm text-gray-600">
-                                I agree to the{" "}
-                                <Link to="/terms" className="text-red-500 hover:text-red-600">
-                                    Terms of Service
-                                </Link>{" "}
-                                and{" "}
-                                <Link to="/privacy" className="text-red-500 hover:text-red-600">
-                                    Privacy Policy
-                                </Link>
+                                I agree to the <Link to="/terms" className="text-red-500 hover:text-red-600">Terms of Service</Link> and <Link to="/privacy" className="text-red-500 hover:text-red-600">Privacy Policy</Link>
                             </span>
                         </label>
                     </div>
 
-                    {/* Submit Button */}
-                    <button
-                        type="submit"
-                        className="w-full bg-red-500 text-white py-3 rounded-lg font-medium hover:bg-red-600 transition-colors"
-                    >
+                    <button type="submit" className="w-full bg-red-500 text-white py-3 rounded-lg font-medium hover:bg-red-600 transition-colors">
                         Create Account
                     </button>
 
-                    {/* Sign In Link */}
                     <p className="mt-6 text-center text-sm text-gray-600">
-                        Already have an account?{" "}
-                        <Link to="/login" className="text-red-500 hover:text-red-600 font-medium">
-                            Sign in
-                        </Link>
+                        Already have an account? <Link to="/login" className="text-red-500 hover:text-red-600 font-medium">Sign in</Link>
                     </p>
                 </form>
             </div>

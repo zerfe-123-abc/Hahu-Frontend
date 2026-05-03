@@ -33,14 +33,14 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
     ];
 
     const publicCategories = [
-        { id: 1, name: "Electronics", icon: "📱", link: "/category/electronics", count: 234 },
-        { id: 2, name: "Vehicles", icon: "🚗", link: "/category/vehicles", count: 89 },
-        { id: 3, name: "Furniture", icon: "🛋️", link: "/category/furniture", count: 156 },
-        { id: 4, name: "Clothing", icon: "👕", link: "/category/clothing", count: 312 },
-        { id: 5, name: "Books", icon: "📚", link: "/category/books", count: 78 },
-        { id: 6, name: "Sports", icon: "⚽", link: "/category/sports", count: 67 },
-        { id: 7, name: "Home & Garden", icon: "🏡", link: "/category/home", count: 145 },
-        { id: 8, name: "Baby & Kids", icon: "👶", link: "/category/baby", count: 89 },
+        { id: 1, name: "Electronics", icon: "📱", link: "/category/electronics" },
+        { id: 2, name: "Vehicles", icon: "🚗", link: "/category/vehicles" },
+        { id: 3, name: "Furniture", icon: "🛋️", link: "/category/furniture" },
+        { id: 4, name: "Clothing", icon: "👕", link: "/category/clothing" },
+        { id: 5, name: "Books", icon: "📚", link: "/category/books" },
+        { id: 6, name: "Sports", icon: "⚽", link: "/category/sports" },
+        { id: 7, name: "Home & Garden", icon: "🏡", link: "/category/home" },
+        { id: 8, name: "Baby & Kids", icon: "👶", link: "/category/baby" },
     ];
 
     // User Sidebar - Logged in user features
@@ -120,7 +120,7 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
             )}
 
             <aside
-                className={`fixed top-16 left-0 h-[calc(100vh-4rem)] bg-linear-to-b from-slate-900 to-slate-950 dark:from-slate-900 dark:to-slate-950 text-white transition-all duration-300 z-50 
+                className={`fixed top-0 left-0 h-[calc(100vh-4rem)] bg-gradient-to-b from-slate-900 to-slate-950 dark:from-slate-900 dark:to-slate-950 text-white transition-all duration-300 z-50 
              ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0
              ${isOpen ? "w-72" : "w-20"}`}
             >
@@ -128,18 +128,13 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
                 <div className="h-16 flex items-center justify-between px-4 border-b border-slate-800 dark:border-slate-800">
                     {isOpen && (
                         <div className="flex items-center gap-3">
-                            <div className="w-9 h-9 rounded-lg bg-linear-to-br from-blue-500 to-blue-700 flex items-center justify-center font-bold text-sm shadow-lg shadow-white-500/20">
+                            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center font-bold text-sm shadow-lg shadow-white-500/20">
                                 H
                             </div>
                             <span className="font-bold text-lg tracking-tight">HAHU<span className="text-white-500">MARKET</span></span>
                         </div>
                     )}
-                    <button
-                        onClick={onClose}
-                        className="md:hidden p-2 hover:bg-slate-800 rounded-lg transition-colors"
-                    >
-                        <X size={20} />
-                    </button>
+
                 </div>
 
                 {/* Scrollable Menu */}
@@ -184,7 +179,6 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
                                         <span className="text-lg group-hover:scale-110 transition-transform">{cat.icon}</span>
                                         <span className="text-sm">{cat.name}</span>
                                     </div>
-                                    <span className="text-xs text-slate-500 bg-slate-800 px-2 py-1 rounded-full">{cat.count}</span>
                                 </Link>
                             ))}
                         </>

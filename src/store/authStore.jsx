@@ -6,8 +6,19 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
 
   const login = (email) => {
-    // fake login (no backend yet)
-    setUser({ email })
+    const normalizedEmail = email?.trim().toLowerCase()
+    const role = normalizedEmail === "admin@hahumarket.com" || normalizedEmail?.includes("admin") ? "admin" : "user"
+    const name = normalizedEmail?.split("@")[0] || "Guest"
+
+    setUser({ email: normalizedEmail, role, name })
+  }
+
+  const register = (payload) => {
+    const normalizedEmail = payload.email?.trim().toLowerCase()
+    const role = normalizedEmail === "admin@hahumarket.com" || normalizedEmail?.includes("admin") ? "admin" : "user"
+    const name = `${payload.firstName || "User"} ${payload.lastName || ""}`.trim() || "Guest"
+
+    setUser({ email: normalizedEmail, role, name })
   }
 
   const logout = () => {
@@ -15,7 +26,7 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   )
