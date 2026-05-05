@@ -1,10 +1,7 @@
-import React from 'react'
+﻿import { AuthProvider as StoreAuthProvider } from "@/store/authStore.jsx"
 
-const AuthProvider = () => {
-    return (
-        <div>
-            this is authentication provider
-        </div>
-    )
+const AuthProvider = ({ children }) => {
+  return <StoreAuthProvider>{children}</StoreAuthProvider>
 }
+
 export default AuthProvider

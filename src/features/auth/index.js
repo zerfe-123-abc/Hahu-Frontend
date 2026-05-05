@@ -1,9 +1,6 @@
-import React from 'react'
+﻿import Login from "./pages/Login"
+import Register from "./pages/Register"
+import { AuthProvider, useAuth } from "@/store/authStore.jsx"
 
-const index = () => {
-  return (
-    <div>index</div>
-  )
-}
-
-export default index
+export { Login, Register, AuthProvider, useAuth }
+export default { Login, Register }

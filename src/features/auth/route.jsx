@@ -1,9 +1,10 @@
-import React from 'react'
+﻿import Login from "./pages/Login"
+import Register from "./pages/Register"
 
-const route = () => {
-    return (
-        <div>route</div>
-    )
-}
+const authRoutes = [
+  { path: "login", element: <Login /> },
+  { path: "register", element: <Register /> },
+]
 
-export default route
+export default authRoutes
+export { authRoutes }

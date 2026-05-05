@@ -154,7 +154,7 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
                 </div>
 
                 {/* Scrollable Menu */}
-                <div className="h-[calc(100%-64px)] overflow-y-auto py-4 px-3 space-y-1">
+                <div className="h-screen overflow-y-auto py-4 px-3 space-y-1">
                     {/* Main Menu Items */}
                     {menuItems.map((item) => (
                         <Link
