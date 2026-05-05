@@ -168,7 +168,7 @@ const Navbar = ({ toggleSidebar }) => {
                       setUserMenuOpen(false);
                       navigate("/");
                     }}
-                    className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-700 dark:hover:bg-gray-800 text-sm text-white-400 transition-colors w-full"
+                    className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-700 dark:hover:bg-red-500 text-sm text-white-400 transition-colors w-full"
                   >
                     <LogOut size={16} />
                     Sign Out

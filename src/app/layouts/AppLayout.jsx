@@ -9,7 +9,7 @@ const AppLayout = () => {
   const { user } = useAuth()
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className="min-h-screen bg-slate-50 text-black">
       <Sidebar isOpen={showSidebar} variant="user" onClose={() => setShowSidebar(false)} />
 
       <div className={`min-h-screen transition-all ${showSidebar ? 'md:pl-72' : 'md:pl-20'}`}>
@@ -19,9 +19,9 @@ const AppLayout = () => {
           <Outlet />
         </main>
 
-        <footer className="bg-gray-900 text-gray-200 pt-10 pb-6">
+        <footer className="bg-gray-50 text-black pt-20 pb-6 font-bold text-100pxl">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center text-gray-400 text-sm">
+            <div className="text-center text-gray-950 text-lg">
               &copy; {new Date().getFullYear()} HAHU MARKET. All rights reserved.
             </div>
           </div>

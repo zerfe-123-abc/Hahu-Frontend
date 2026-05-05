@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import Logo from "@/assets/logo.jpg";
+import { useAuth } from "@/store/authStore.jsx";
+import { useNavigate } from "react-router-dom";
 import {
     LayoutDashboard,
     Package,
@@ -15,12 +18,14 @@ import {
     Store,
     Tag,
     TrendingUp,
-    X,
 } from "lucide-react";
 
 const Sidebar = ({ isOpen, variant = "public", onClose }) => {
     const [openDropdown, setOpenDropdown] = useState(null);
     const location = useLocation();
+    const { logout } = useAuth();
+    const [userMenuOpen, setUserMenuOpen] = useState(false);
+    const navigate = useNavigate();
 
     // Public Sidebar - Categories for second-hand store
     const publicMenuItems = [
@@ -120,21 +125,29 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
             )}
 
             <aside
-                className={`fixed top-0 left-0 h-[calc(100vh-4rem)] bg-gradient-to-b from-slate-900 to-slate-950 dark:from-slate-900 dark:to-slate-950 text-white transition-all duration-300 z-50 
+                className={`fixed top-0 left-0 h-[calc(100vh-4rem)] bg-gradient-to-b from-slate-50 to-slate-50 dark:from-slate-50 dark:to-slate-50 text-black transition-all duration-300 z-50 
              ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0
              ${isOpen ? "w-72" : "w-20"}`}
             >
                 {/* Header */}
-                <div className="h-16 flex items-center justify-between px-4 border-b border-slate-800 dark:border-slate-800">
-                    {isOpen && (
-                        <div className="flex items-center gap-3">
-                            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center font-bold text-sm shadow-lg shadow-white-500/20">
-                                H
-                            </div>
-                            <span className="font-bold text-lg tracking-tight">HAHU<span className="text-white-500">MARKET</span></span>
-                        </div>
-                    )}
+                <div className="h-26 flex items-center justify-between px-4 border-b bg-black text-white">
+                    <div className="flex items-center gap-3">
 
+                        {/* Logo ALWAYS visible */}
+                        <img
+                            src={Logo}
+                            alt="HAHU Market Logo"
+                            className="w-8 h-8 rounded-full object-cover"
+                        />
+
+                        {/* Text only when open */}
+                        {isOpen && (
+                            <span className="font-bold text-lg tracking-tight">
+                                HAHU <span className="text-white ">MARKET</span>
+                            </span>
+                        )}
+
+                    </div>
                 </div>
 
                 {/* Scrollable Menu */}
@@ -147,10 +160,10 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
                             onClick={handleNavClick}
                             className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group ${isActive(item.link)
                                 ? 'bg-linear-to-r from-red-500/20 to-red-600/10 text-white-400 border-l-2 border-white-500'
-                                : 'hover:bg-slate-800 dark:hover:bg-slate-800'
+                                : 'hover:bg-slate-800 dark:hover:bg-slate-300'
                                 }`}
                         >
-                            <item.icon size={20} className={`${isActive(item.link) ? 'text-white-400' : 'text-slate-400 group-hover:text-white-400'} transition-colors`} />
+                            <item.icon size={20} className={`${isActive(item.link) ? 'text-white-400' : 'text-slate-700 group-hover:text-white-400'} transition-colors`} />
                             {isOpen && (
                                 <>
                                     <span className="text-sm font-medium flex-1">{item.name}</span>
@@ -163,22 +176,31 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
                     ))}
 
                     {/* Public Categories */}
-                    {variant === "public" && isOpen && (
+                    {variant === "public" && (
                         <>
-                            <div className="pt-4 pb-2">
-                                <h3 className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider px-3">Categories</h3>
-                            </div>
+                            {isOpen && (
+                                <div className="pt-4 pb-2">
+                                    <h3 className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider px-3">
+                                        Categories
+                                    </h3>
+                                </div>
+                            )}
                             {publicCategories.map((cat) => (
                                 <Link
                                     key={cat.id}
                                     to={cat.link}
                                     onClick={handleNavClick}
-                                    className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-800 dark:hover:bg-slate-800 transition-colors group"
+                                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-800 dark:hover:bg-slate-300 transition-colors group"
                                 >
-                                    <div className="flex items-center gap-3">
-                                        <span className="text-lg group-hover:scale-110 transition-transform">{cat.icon}</span>
+                                    {/* Icon ALWAYS visible */}
+                                    <span className="text-lg group-hover:scale-110 transition-transform">
+                                        {cat.icon}
+                                    </span>
+
+                                    {/* Text only when open */}
+                                    {isOpen && (
                                         <span className="text-sm">{cat.name}</span>
-                                    </div>
+                                    )}
                                 </Link>
                             ))}
                         </>
@@ -192,7 +214,7 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
                                 <div key={subMenu.id} className="mb-2">
                                     <button
                                         onClick={() => toggleDropdown(subMenu.id)}
-                                        className="flex items-center justify-between w-full px-3 py-2.5 rounded-xl hover:bg-slate-800 dark:hover:bg-slate-800 transition-colors"
+                                        className="flex items-center justify-between w-full px-3 py-2.5 rounded-xl hover:bg-slate-800 dark:hover:bg-slate-300 transition-colors"
                                     >
                                         <div className="flex items-center gap-3">
                                             <subMenu.icon size={20} className="text-slate-400" />
@@ -210,7 +232,7 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
                                                     key={idx}
                                                     to={item.link}
                                                     onClick={handleNavClick}
-                                                    className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-800 dark:hover:bg-slate-800 text-sm text-slate-300 hover:text-white transition-colors"
+                                                    className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-800 dark:hover:bg-slate-300 text-sm text-slate-300 hover:text-white transition-colors"
                                                 >
                                                     <ChevronRight size={14} className="text-slate-500" />
                                                     {item.name}
@@ -231,14 +253,21 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
                                     <Link
                                         to="/app/settings"
                                         onClick={handleNavClick}
-                                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-800 dark:hover:bg-slate-800 transition-colors"
+                                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-800 dark:hover:bg-slate-300 transition-colors"
                                     >
                                         <Settings size={20} className="text-slate-400" />
                                         <span className="text-sm">Settings</span>
                                     </Link>
-                                    <button className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-800 dark:hover:bg-slate-800 transition-colors w-full text-left text-red-400" onClick={handleNavClick}>
-                                        <LogOut size={20} />
-                                        <span className="text-sm">Sign Out</span>
+                                    <button
+                                        onClick={() => {
+                                            logout();
+                                            setUserMenuOpen(false);
+                                            navigate("/");
+                                        }}
+                                        className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-400 dark:hover:bg-gray-500 text-sm text-red-500 transition-colors w-full"
+                                    >
+                                        <LogOut size={16} />
+                                        Sign Out
                                     </button>
                                 </div>
                             )}
@@ -246,7 +275,7 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
                                 <Link
                                     to="/admin/profile"
                                     onClick={handleNavClick}
-                                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-800 dark:hover:bg-slate-800 transition-colors"
+                                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-800 dark:hover:bg-slate-300 transition-colors"
                                 >
                                     <User size={20} className="text-slate-400" />
                                     <span className="text-sm">Admin Profile</span>
