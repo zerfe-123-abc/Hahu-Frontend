@@ -97,7 +97,7 @@ const Navbar = ({ toggleSidebar }) => {
           </form>
 
           <div className="flex items-center gap-1 md:gap-2">
-            <Link to="/notifications" className="hidden md:flex p-2.5 hover:bg-gray-800 dark:hover:bg-gray-800 rounded-lg transition-colors relative">
+            <Link to="/notifications" className="p-2.5 hover:bg-gray-800 dark:hover:bg-gray-800 rounded-lg transition-colors relative">
               <Bell size={20} />
               <span className="absolute top-1 right-1 w-2 h-2 bg-white-500 rounded-full"></span>
             </Link>

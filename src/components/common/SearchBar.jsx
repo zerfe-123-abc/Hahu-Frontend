@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useSearch } from "../../store/searchStore"
+import { useSearch } from "@/store/searchStore"
 
 const SearchBar = ({ onSearch }) => {
   const [query, setQuery] = useState("")
@@ -9,7 +9,6 @@ const SearchBar = ({ onSearch }) => {
     e.preventDefault()
     onSearch(searchQuery)
   }
-
   return (
     <form onSubmit={handleSubmit} className="flex w-full">
       <input
