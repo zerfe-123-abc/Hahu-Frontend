@@ -125,9 +125,12 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
             )}
 
             <aside
-                className={`fixed top-0 left-0 h-[calc(100vh-4rem)] bg-gradient-to-b from-slate-50 to-slate-50 dark:from-slate-50 dark:to-slate-50 text-black transition-all duration-300 z-50 
-             ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0
-             ${isOpen ? "w-72" : "w-20"}`}
+                className={`fixed top-0 left-0 h-screen
+                            bg-gradient-to-b from-slate-50 to-slate-50
+                            text-black z-50
+                            overflow-hidden
+                            transition-[width] duration-300 ease-in-out
+                            ${isOpen ? "w-72" : "w-20"}`}
             >
                 {/* Header */}
                 <div className="h-26 flex items-center justify-between px-4 border-b bg-black text-white">
@@ -158,7 +161,7 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
                             key={item.id}
                             to={item.link}
                             onClick={handleNavClick}
-                            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group ${isActive(item.link)
+                            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-300 ease-in-out group ${isActive(item.link)
                                 ? 'bg-linear-to-r from-red-500/20 to-red-600/10 text-white-400 border-l-2 border-white-500'
                                 : 'hover:bg-slate-800 dark:hover:bg-slate-300'
                                 }`}
@@ -264,7 +267,7 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
                                             setUserMenuOpen(false);
                                             navigate("/");
                                         }}
-                                        className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-400 dark:hover:bg-gray-500 text-sm text-red-500 transition-colors w-full"
+                                        className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-300 dark:hover:bg-gray-300 text-sm text-red-500 transition-colors w-full"
                                     >
                                         <LogOut size={16} />
                                         Sign Out
