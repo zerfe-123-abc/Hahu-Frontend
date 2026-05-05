@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Eye, EyeOff, Mail, Lock, User, Phone, MapPin } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, User, Phone, MapPin, Upload } from "lucide-react";
 import { useAuth } from "@/store/authStore.jsx";
 
 const Register = () => {
@@ -11,6 +11,7 @@ const Register = () => {
         email: "",
         phone: "",
         location: "",
+        nationalId: null,
         password: "",
         confirmPassword: "",
         agreeTerms: false,
@@ -19,10 +20,10 @@ const Register = () => {
     const navigate = useNavigate();
 
     const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
+        const { name, value, type, checked, files } = e.target;
         setFormData({
             ...formData,
-            [name]: type === "checkbox" ? checked : value,
+            [name]: type === "checkbox" ? checked : type === "file" ? files[0] : value,
         });
     };
 
@@ -131,6 +132,24 @@ const Register = () => {
                                 required
                             />
                         </div>
+                    </div>
+
+                    <div className="mb-6">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Upload National ID</label>
+                        <div className="relative">
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <Upload className="h-5 w-5 text-gray-400" />
+                            </div>
+                            <input
+                                type="file"
+                                name="nationalId"
+                                onChange={handleChange}
+                                accept="image/*,.pdf"
+                                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100"
+                                required
+                            />
+                        </div>
+                        <p className="mt-1 text-xs text-gray-500">Upload a clear photo or scan of your national ID (JPG, PNG, PDF)</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
