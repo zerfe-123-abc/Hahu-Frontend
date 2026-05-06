@@ -1,6 +1,6 @@
 import { useCart } from "../store/cartStore"
 
-function Cart() {
+const Cart = () => {
   const { cartItems, removeFromCart } = useCart()
 
   const total = cartItems.reduce((sum, item) => sum + item.price, 0)
