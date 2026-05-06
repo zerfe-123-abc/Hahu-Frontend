@@ -12,5 +12,5 @@ export const PublicRoute = [
     { path: "category/:category", element: <CategoryPage /> },
 
     { path: "categories", element: <StaticPage title="Categories" description="Browse categories" /> },
-    { path: "privacy", element: <StaticPage title="Privacy Policy" description="Privacy info" /> },
+
 ];

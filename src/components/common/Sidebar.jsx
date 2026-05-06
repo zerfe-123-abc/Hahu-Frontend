@@ -125,15 +125,11 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
             )}
 
             <aside
-                className={`fixed top-0 left-0 h-screen
-                            bg-gradient-to-b from-slate-50 to-slate-50
-                            text-black z-50
-                            overflow-hidden
-                            transition-[width] duration-300 ease-in-out
-                            ${isOpen ? "w-72" : "w-20"}`}
+                className={`fixed top-0 left-0 h-screen flex flex-col bg-white z-50 transition-all duration-300
+  ${isOpen ? "w-72 translate-x-0" : "-translate-x-full md:translate-x-0 md:w-20"}`}
             >
                 {/* Header */}
-                <div className="h-26 flex items-center justify-between px-4 border-b bg-black text-white">
+                <div className="h-26.5 flex items-center justify-between px-4 border-b bg-black text-white">
                     <div className="flex items-center gap-3">
 
                         {/* Logo ALWAYS visible */}
@@ -154,7 +150,7 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
                 </div>
 
                 {/* Scrollable Menu */}
-                <div className="h-screen overflow-y-auto py-4 px-3 space-y-1">
+                <div className="flex-1 overflow-y-auto px-3 py-4 space-y-2">
                     {/* Main Menu Items */}
                     {menuItems.map((item) => (
                         <Link
@@ -250,7 +246,7 @@ const Sidebar = ({ isOpen, variant = "public", onClose }) => {
 
                     {/* Bottom Actions */}
                     {isOpen && (
-                        <div className="pt-4 mt-4 border-t border-slate-800">
+                        <div className="mt-auto p-3 border-t">
                             {variant === "user" && (
                                 <div className="space-y-1">
                                     <Link

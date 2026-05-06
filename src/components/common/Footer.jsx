@@ -34,29 +34,29 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-md font-semibold text-black mb-2">Links</h4>
+            <h4 className="text-md font-semibold text-black mb-2 hover:text-gray-700">Links</h4>
             <ul className="space-y-1 text-black text-sm">
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/browse">Browse</Link></li>
-              <li><Link to="/create-listing">Sell</Link></li>
-              <li><Link to="/orders">Orders</Link></li>
+              <li className="hover:text-red-700"><Link to="/">Home</Link></li>
+              <li className="hover:text-red-700"><Link to="/browse">Browse</Link></li>
+              <li className="hover:text-red-700"><Link to="/create-listing">Sell</Link></li>
+              <li className="hover:text-red-700"><Link to="/orders">Orders</Link></li>
             </ul>
           </div>
 
           {/* Categories */}
           <div>
-            <h4 className="text-md font-semibold text-black mb-2">Categories</h4>
+            <h4 className="text-md font-semibold text-black mb-2 hover:text-gray-700">Categories</h4>
             <ul className="space-y-1 text-black text-sm">
-              <li><Link to="/category/electronics">Electronics</Link></li>
-              <li><Link to="/category/vehicles">Vehicles</Link></li>
-              <li><Link to="/category/furniture">Furniture</Link></li>
-              <li><Link to="/category/clothing">Clothing</Link></li>
+              <li className="hover:text-red-700"><Link to="/category/electronics">Electronics</Link></li>
+              <li className="hover:text-red-700"><Link to="/category/vehicles">Vehicles</Link></li>
+              <li className="hover:text-red-700"><Link to="/category/furniture">Furniture</Link></li>
+              <li className="hover:text-red-700"><Link to="/category/clothing">Clothing</Link></li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h4 className="text-md font-semibold text-black mb-2">Contact</h4>
+            <h4 className="text-md font-semibold text-black mb-2 hover:text-gray-700">Contact</h4>
             <ul className="space-y-2 text-black text-sm">
               <li className="flex items-center gap-2">
                 <FaMapMarkerAlt className="text-red-500" />
@@ -79,9 +79,9 @@ export default function Footer() {
         <div className="mt-6 pt-4 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs text-black gap-3">
           <span>© {new Date().getFullYear()} HAHU MARKET</span>
           <div className="flex gap-3">
-            <Link to="/privacy">Privacy</Link>
-            <Link to="/terms">Terms</Link>
-            <Link to="/faq">FAQ</Link>
+            <Link className="hover:text-red-400" to="/privacy">Privacy</Link>
+            <Link className="hover:text-red-400" to="/terms">Terms</Link>
+            <Link className="hover:text-red-400" to="/faq">FAQ</Link>
           </div>
         </div>
 
