@@ -1,24 +1,24 @@
-import { useCategory } from "../store/categoryStore"
-import { useProducts } from "../store/productStore"
+import { useCategory } from "@/store/categoryStore"
+import { useProducts } from "@/store/productStore"
 import { Link } from "react-router-dom"
-import { useSearch } from "../store/searchStore"
+import { useSearch } from "@/store/searchStore"
 
-function Home() {
+const Home = () => {
   const { selectedCategory } = useCategory()
   const { searchQuery } = useSearch()
   const { products } = useProducts()
 
   const filteredProducts = products.filter((product) => {
-  const matchesCategory =
-    selectedCategory === "All" || product.category === selectedCategory
+    const matchesCategory =
+      selectedCategory === "All" || product.category === selectedCategory
 
-  const matchesSearch =
-    product.title.toLowerCase().includes(searchQuery.toLowerCase())
+    const matchesSearch =
+      product.title.toLowerCase().includes(searchQuery.toLowerCase())
 
-  const isApproved = product.status === "APPROVED"
+    const isApproved = product.status === "APPROVED"
 
-  return matchesCategory && matchesSearch && isApproved
-})
+    return matchesCategory && matchesSearch && isApproved
+  })
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
