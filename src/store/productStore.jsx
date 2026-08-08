@@ -1,7 +1,7 @@
-import { createContext, useContext, useState } from "react"
-import initialProducts from "../data/products"
+import { createContext, useContext, useState } from "react";
+import initialProducts from "../data/products";
 
-const ProductContext = createContext()
+const ProductContext = createContext();
 
 export function ProductProvider({ children }) {
   // Initialize products (seed data)
@@ -9,8 +9,8 @@ export function ProductProvider({ children }) {
     initialProducts.map((p) => ({
       ...p,
       status: "APPROVED", // existing products are approved
-    }))
-  )
+    })),
+  );
 
   // ✅ Seller adds product
   const addProduct = (newProduct) => {
@@ -18,32 +18,27 @@ export function ProductProvider({ children }) {
       ...newProduct,
       id: Date.now(),
       status: "PENDING",
-    }
+    };
 
-    setProducts((prev) => [...prev, product])
-  }
+    setProducts((prev) => [...prev, product]);
+  };
 
   // ✅ Admin approves product
   const approveProduct = (id) => {
     setProducts((prev) =>
       prev.map((product) =>
-        product.id === id
-          ? { ...product, status: "APPROVED" }
-          : product
-      )
-    )
-  }
-
+        product.id === id ? { ...product, status: "APPROVED" } : product,
+      ),
+    );
+  };
   // ❌ Admin rejects product
   const rejectProduct = (id) => {
     setProducts((prev) =>
       prev.map((product) =>
-        product.id === id
-          ? { ...product, status: "REJECTED" }
-          : product
-      )
-    )
-  }
+        product.id === id ? { ...product, status: "REJECTED" } : product,
+      ),
+    );
+  };
 
   return (
     <ProductContext.Provider
@@ -56,7 +51,7 @@ export function ProductProvider({ children }) {
     >
       {children}
     </ProductContext.Provider>
-  )
+  );
 }
 
-export const useProducts = () => useContext(ProductContext)
+export const useProducts = () => useContext(ProductContext);

@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Check, Sun } from "lucide-react";
-import useThemeStore from "../../stores/ThemeStore";
-import useTheme from "../../hooks/useTheme";
+import useThemeStore from "../../../stores/ThemeStore";
+import useTheme from "../../../hooks/useTheme";
 
 const themeOptions = [
   {
@@ -53,17 +53,10 @@ const ThemeDropdown = () => {
       {/* Button */}
       <button
         onClick={() => setOpen((prev) => !prev)}
-        className={`
-          flex items-center gap-1
-          rounded-xl
-          px-4 py-2
-          transition-all duration-200
-          cursor-pointer
+        className={`flex items-center gap-1 rounded-xl px-4 py-2 transition-all duration-200 cursor-pointer
           ${currentTheme.header}
           ${currentTheme.text}
-          transition-colors
-          duration-500
-          ease-in-out
+          transition-colors duration-500 ease-in-out
         `}
       >
         <div className="flex flex-1 items-center space-x-3 pl-6 pr-5 border-l border-slate-200 rounded-xl gap-3">
@@ -93,33 +86,17 @@ const ThemeDropdown = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className={`
-              absolute
-              right-0
-              mt-2
-              w-52
-              rounded-xl
-              overflow-hidden
-              z-50
+            className={`absolute right-0 mt-2 w-52 rounded-xl overflow-hidden z-50
               ${currentTheme.dropdown}
               ${currentTheme.dropdownText}
-              transition-colors
-              duration-500
-              ease-in-out
+              transition-colors duration-500 ease-in-out
             `}
           >
             {themeOptions.map((item) => (
               <button
                 key={item.id}
                 onClick={() => changeTheme(item.id)}
-                className={`
-                  w-full
-                  flex
-                  items-center
-                  justify-between
-                  px-4
-                  py-3
-                  transition-all
+                className={`w-full flex items-center justify-between px-4 py-3 transition-all
                   ${
                     theme === "black" || theme === "darkblue"
                       ? "hover:bg-slate-700"

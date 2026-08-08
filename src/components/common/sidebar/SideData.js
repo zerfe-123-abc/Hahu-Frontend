@@ -6,6 +6,14 @@ import {
   Heart,
   History,
   Store,
+  Laptop,
+  Van,
+  BedSingle,
+  Shirt,
+  BookOpenText,
+  Volleyball,
+  House,
+  Baby,
 } from "lucide-react";
 
 // Public Sidebar - Categories for second-hand store
@@ -19,14 +27,14 @@ export const publicMenuItems = [
 ];
 
 export const publicCategories = [
-  { id: 1, name: "Electronics", icon: "📱", link: "/category/electronics" },
-  { id: 2, name: "Vehicles", icon: "🚗", link: "/category/vehicles" },
-  { id: 3, name: "Furniture", icon: "🛋️", link: "/category/furniture" },
-  { id: 4, name: "Clothing", icon: "👕", link: "/category/clothing" },
-  { id: 5, name: "Books", icon: "📚", link: "/category/books" },
-  { id: 6, name: "Sports", icon: "⚽", link: "/category/sports" },
-  { id: 7, name: "Home & Garden", icon: "🏡", link: "/category/home" },
-  { id: 8, name: "Baby & Kids", icon: "👶", link: "/category/baby" },
+  { id: 1, name: "Electronics", icon: Laptop, link: "/category/electronics" },
+  { id: 2, name: "Vehicles", icon: Van, link: "/category/vehicles" },
+  { id: 3, name: "Furniture", icon: BedSingle, link: "/category/furniture" },
+  { id: 4, name: "Clothing", icon: Shirt, link: "/category/clothing" },
+  { id: 5, name: "Books", icon: BookOpenText, link: "/category/books" },
+  { id: 6, name: "Sports", icon: Volleyball, link: "/category/sports" },
+  { id: 7, name: "Home & Garden", icon: House, link: "/category/home" },
+  { id: 8, name: "Baby & Kids", icon: Baby, link: "/category/baby" },
 ];
 
 // User Sidebar - Logged in user features

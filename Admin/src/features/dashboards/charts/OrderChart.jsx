@@ -17,12 +17,12 @@ const OrderChart = () => {
   const { theme, setTheme } = useThemeStore();
   return (
     <div
-      className={`backdrop-blur-xl rounded-b-2xl rounded-2xl border-l-0 p-6 shadow-lg hover:shadow-lg transition-all duration-300 hover:translate-x-1 hover:scale-[1.02] min-w-0
-        ${
-          theme === "black" || theme === "darkblue"
-            ? "bg-slate-900"
-            : "bg-slate-50"
-        }
+      className={`rounded-b-2xl rounded-2xl border-l-0 p-6 shadow-lg hover:shadow-lg transition-all duration-300 hover:translate-x-1 hover:scale-[1.02] min-w-0
+      ${
+        theme === "black" || theme === "darkblue"
+          ? "bg-slate-900"
+          : "bg-slate-50"
+      }
 
         ${currentTheme.background}
         ${currentTheme.text}
@@ -44,12 +44,12 @@ const OrderChart = () => {
         </div>
       </div>
       <div className="h-80">
-        <ResponsiveContainer>
+        <ResponsiveContainer width="100%" height={300}>
           <BarChart data={OrderData}>
             <CartesianGrid
               stroke={theme === "white" ? "#E2E8F0" : "#334155"}
               strokeDasharray="3 3"
-              opacity={0.3}
+              opacity={1}
             />
             <XAxis
               stroke={theme === "white" ? "#64748B" : "#CBD5E1"}
@@ -57,7 +57,12 @@ const OrderChart = () => {
             />
             <YAxis stroke={theme === "white" ? "#64748B" : "#CBD5E1"} />
             <Tooltip formatter={(value) => [`${value} Orders`, "Orders"]} />
-            <Bar dataKey="orders" fill="#3B82F6" radius={[8, 8, 0, 0]} />
+            <Bar
+              dataKey="orders"
+              fill="#3B82F6"
+              radius={[8, 8, 0, 0]}
+              animationDuration={1500}
+            />
           </BarChart>
         </ResponsiveContainer>
       </div>

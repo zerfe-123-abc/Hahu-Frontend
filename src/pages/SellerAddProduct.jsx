@@ -1,12 +1,11 @@
-import { useState } from "react"
-import { useProducts } from "@/store/productStore"
-import { useNavigate } from "react-router-dom"
+import { useState } from "react";
+import { useProducts } from "@/store/productStore";
+import { useNavigate } from "react-router-dom";
 
 const SellerAddProduct = () => {
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
-
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState("");
 
   const [form, setForm] = useState({
     title: "",
@@ -14,34 +13,26 @@ const SellerAddProduct = () => {
     category: "Phones",
     description: "",
     image: "",
-  })
+  });
 
-
-  const { addProduct } = useProducts()
-
+  const { addProduct } = useProducts();
 
   const handleChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
-    })
-  }
-
+    });
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-
+    e.preventDefault();
 
     addProduct({
       ...form,
       price: Number(form.price),
-    })
+    });
 
-
-    setMessage(
-      "Product submitted successfully. Waiting for admin approval."
-    )
-
+    setMessage("Product submitted successfully. Waiting for admin approval.");
 
     setForm({
       title: "",
@@ -49,26 +40,17 @@ const SellerAddProduct = () => {
       category: "Phones",
       description: "",
       image: "",
-    })
-
+    });
 
     setTimeout(() => {
-      navigate("/app/my-listings")
-    }, 1500)
-
-  }
-
-
+      navigate("/app/my-listings");
+    }, 1500);
+  };
 
   return (
     <div className="max-w-2xl mx-auto">
-
       <div className="bg-white rounded-xl shadow p-6">
-
-        <h2 className="text-3xl font-bold mb-6">
-          Create New Listing
-        </h2>
-
+        <h2 className="text-3xl font-bold mb-6">Create New Listing</h2>
 
         {message && (
           <div className="bg-green-100 text-green-700 p-3 rounded-lg mb-5">
@@ -76,18 +58,9 @@ const SellerAddProduct = () => {
           </div>
         )}
 
-
-
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-5"
-        >
-
-
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="font-medium">
-              Product Title
-            </label>
+            <label className="font-medium">Product Title</label>
 
             <input
               type="text"
@@ -100,12 +73,8 @@ const SellerAddProduct = () => {
             />
           </div>
 
-
-
           <div>
-            <label className="font-medium">
-              Price (ETB)
-            </label>
+            <label className="font-medium">Price (ETB)</label>
 
             <input
               type="number"
@@ -118,12 +87,8 @@ const SellerAddProduct = () => {
             />
           </div>
 
-
-
           <div>
-            <label className="font-medium">
-              Category
-            </label>
+            <label className="font-medium">Category</label>
 
             <select
               name="category"
@@ -131,24 +96,16 @@ const SellerAddProduct = () => {
               onChange={handleChange}
               className="w-full border p-3 rounded-lg mt-1"
             >
-
               <option>Phones</option>
               <option>Electronics</option>
               <option>Furniture</option>
               <option>Clothes</option>
               <option>Vehicles</option>
-
             </select>
-
           </div>
 
-
-
-
           <div>
-            <label className="font-medium">
-              Description
-            </label>
+            <label className="font-medium">Description</label>
 
             <textarea
               name="description"
@@ -159,16 +116,10 @@ const SellerAddProduct = () => {
               rows="4"
               required
             />
-
           </div>
 
-
-
-
           <div>
-            <label className="font-medium">
-              Image URL
-            </label>
+            <label className="font-medium">Image URL</label>
 
             <input
               type="text"
@@ -180,7 +131,6 @@ const SellerAddProduct = () => {
               required
             />
 
-
             {form.image && (
               <img
                 src={form.image}
@@ -188,12 +138,7 @@ const SellerAddProduct = () => {
                 className="w-40 h-40 object-cover rounded-lg mt-4"
               />
             )}
-
           </div>
-
-
-
-
 
           <button
             type="submit"
@@ -201,15 +146,10 @@ const SellerAddProduct = () => {
           >
             Submit Product
           </button>
-
-
         </form>
-
       </div>
-
     </div>
-  )
-}
+  );
+};
 
-
-export default SellerAddProduct
+export default SellerAddProduct;

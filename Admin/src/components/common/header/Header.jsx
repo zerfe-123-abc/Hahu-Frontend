@@ -1,16 +1,23 @@
 import { FaBars } from "react-icons/fa6";
 import useTheme from "@/hooks/useTheme";
 import useThemeStore from "@/stores/ThemeStore";
-import ThemeDropdown from "@/components/common/ThemeDropdown";
+import ThemeDropdown from "@/components/common/header/ThemeDropdown";
 import AdminInput from "@/components/ui/AdminInput";
 import { useState } from "react";
-import { Bell, Search, ShoppingCart, User2 } from "lucide-react";
+import { Bell, Search, ShoppingCart, User, User2 } from "lucide-react";
 import { Link } from "react-router-dom";
+import ProfileDropdown from "./ProfileDropdown";
+import useAuthStore from "@/stores/AuthStore";
+import Animate from "@/components/ui/Animate";
 
 const Header = ({ setIsOpen }) => {
   const currentTheme = useTheme();
   const { theme, setTheme } = useThemeStore();
+
+  const admin = useAuthStore((state) => state.admin);
+
   const [searchText, setSearchText] = useState("");
+
   const handleSearch = (e) => {
     e.preventDefault();
     const query = searchText.trim();
@@ -19,15 +26,7 @@ const Header = ({ setIsOpen }) => {
   };
   return (
     <header
-      className={`
-    w-full
-    h-16
-    flex
-    items-center
-    gap-6
-    justify-between
-    p-6
-    shadow-sm
+      className={`top-0 left-0 z-50 sticky w-full h-16 flex items-center gap-6 justify-between p-6 shadow-sm
     ${currentTheme.header}
     ${currentTheme.text}
     transition-colors
@@ -68,30 +67,25 @@ const Header = ({ setIsOpen }) => {
       </div>
       <div className="flex items-center ml-auto gap-5">
         <Link
-          to="/notifications"
+          to="/Notification"
           className="relative w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-800/60 transition-all duration-200"
         >
           <Bell size={25} />
         </Link>
-
         <Link
-          to="/Orders"
+          to="/Order"
           className="relative w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-800/60 transition-all duration-200"
         >
           <ShoppingCart size={25} />
           <span className="absolute top-2 right-3 w-2 h-2 rounded-full animate-pulse"></span>
         </Link>
-
-        <div className="flex items-center space-x-3 pl-4 pr-3 border-slate-200">
-          <User2 className="w-8 h-8 rounded-full ring-2 ring-gray-600 hover:bg-slate-500 cursor-pointer" />
-          <div className="hidden md:block">
-            <p className="text-sm font-medium">Hahu-Market</p>
-            <p className="text-xs">Administrator</p>
-          </div>
-        </div>
+        <Animate show={admin && open} variant="slideDown">
+          <ProfileDropdown />
+        </Animate>
       </div>
-
-      <ThemeDropdown />
+      <Animate variant="fade">
+        <ThemeDropdown />
+      </Animate>
     </header>
   );
 };

@@ -29,7 +29,7 @@ const CategoreyChart = () => {
     `}
     >
       <div className="mb-6">
-        <h3 className=" text-xl font-bold">Order by Category</h3>
+        <h3 className=" text-xl font-bold">Products Orderd by Category</h3>
         <p className="text-sm">Product Distribution</p>
       </div>
       <div className="h-48">

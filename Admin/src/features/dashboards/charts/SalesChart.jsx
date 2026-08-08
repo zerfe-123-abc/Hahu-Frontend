@@ -18,7 +18,7 @@ const SalesChart = () => {
   const { theme, setTheme } = useThemeStore();
   return (
     <div
-      className={`backdrop-blur-xl rounded-b-2xl rounded-2xl border-l-0 p-6 shadow-lg hover:shadow-lg transition-all duration-300 hover:translate-x-1 hover:scale-[1.02] min-w-0
+      className={`rounded-b-2xl rounded-2xl border-l-0 p-6 shadow-lg hover:shadow-lg transition-all duration-300 hover:translate-x-1 hover:scale-[1.02] min-w-0
         ${
           theme === "black" || theme === "darkblue"
             ? "bg-slate-900"
